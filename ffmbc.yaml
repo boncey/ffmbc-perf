@@ -1,0 +1,34 @@
+# YAML for a list of tests
+# To add a new test just copy a block and amend
+# Ensure the line starting with a dash precedes each block; it's YAML speak for array element
+
+-
+    name: AIPT 3.x edit
+    command: ffmbc -i 'INPUT_FILE' -timecode 00:00:00:00 -vcodec libx264 INTERLACED_OPTION -g 5 -coder 0 -b 6000k -maxrate 6000k -bufsize 5097k -f mp4 -y -an 'OUTPUT_FILE'
+    interlaced_option: -vf yadif
+    ext: .mp4
+    processes: [1, 2, 4]
+
+-
+    name: AIPT 4.x edit
+    command: nice -n19 ffmbc -threads 12 -i 'INPUT_FILE' -timecode 00:00:00:00 -vcodec mpeg2video -g 5 -coder 0 -b 6000k -maxrate 6000k -bufsize 5097k -r 25 INTERLACED_OPTION -acodec pcm_s16le -ab 96k -ar 48000 -ac 1 -vf scale=1920:1080 -f mxf -y 'OUTPUT_FILE' -acodec pcm_s16le -ab 96k -ar 48000 -ac 1 -newaudio
+    interlaced_option: -vf yadif
+    ext: .mxf
+    processes: [1, 2, 4]
+
+-
+    name: AIPT 7.x edit
+    command: nice -n19 ffmbc -threads 4 -i 'INPUT_FILE' -timecode 00:00:00:00 -vcodec mpeg2video -b 6000k -maxrate 6000k -r 25 INTERLACED_OPTION -acodec pcm_s16le -ar 48000 -ac 1 SCALING_OPTION -f mxf -y 'OUTPUT_FILE' -acodec pcm_s16le -ar 48000 -ac 1 -newaudio
+    interlaced_option: -tff -flags +ilme+ildct
+    scaling_option: -vf scale=1920:1080
+    ext: .mxf
+    processes: [1, 2, 4]
+
+-
+    name: AIPT 7.x edit mov
+    command: nice -n19 ffmbc -threads 4 -i 'INPUT_FILE' -timecode 00:00:00:00 -vcodec mpeg2video -b 6000k -maxrate 6000k -r 25 INTERLACED_OPTION -acodec pcm_s16le -ar 48000 -ac 1 SCALING_OPTION -f mov -y 'OUTPUT_FILE' -acodec pcm_s16le -ar 48000 -ac 1 -newaudio
+    interlaced_option: -tff -flags +ilme+ildct
+    scaling_option: -vf scale=1920:1080
+    ext: .mov
+    processes: [1, 2, 4]
+
